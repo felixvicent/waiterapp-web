@@ -1,17 +1,30 @@
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-import { Header } from './components/Header';
-import { Orders } from './components/Orders';
-import { GlobalStyles } from './styles/GlobalStyles';
+import "react-toastify/dist/ReactToastify.css";
+import { SplashScreen } from "./components/Splash";
+import { AuthProvider } from "./context/auth";
+
+import Router from "./routes";
+import { GlobalStyles } from "./styles/GlobalStyles";
 
 export function App() {
+  const [splashVisible, setSplashVisible] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSplashVisible(false);
+    }, 3000);
+  }, []);
+
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyles />
-      <Header />
-      <Orders />
-      <ToastContainer position='bottom-center' />
-    </>
+      <AuthProvider>
+        {splashVisible ? <SplashScreen /> : <Router />}
+      </AuthProvider>
+      <ToastContainer position="bottom-center" />
+    </BrowserRouter>
   );
 }
