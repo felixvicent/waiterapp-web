@@ -1,8 +1,8 @@
 import { InputHTMLAttributes, useState } from "react";
 import { Container } from "./styles";
 
-import eye from "../../assets/images/eye.svg";
-import eyeHidden from "../../assets/images/eye-hidden.svg";
+import eye from "../../assets/images/icons/eye.svg";
+import eyeHidden from "../../assets/images/icons/eye-hidden.svg";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;

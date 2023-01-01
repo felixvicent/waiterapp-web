@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import closeIcon from '../../assets/images/close-icon.svg';
-import { Order } from '../../types/Order';
-import { formatCurrency } from '../../utils/formatCurrency';
+import { useEffect } from "react";
+import closeIcon from "../../assets/images/icons/close-icon.svg";
+import { Order } from "../../types/Order";
+import { formatCurrency } from "../../utils/formatCurrency";
 
-import { Actions, ModalBody, OrderDetails, Overlay } from './styles';
+import { Actions, ModalBody, OrderDetails, Overlay } from "./styles";
 
 interface OrderModalProps {
   visible: boolean;
@@ -20,18 +20,18 @@ export function OrderModal({
   onClose,
   onCancelOrder,
   isLoading,
-  onChangeOrderStatus
+  onChangeOrderStatus,
 }: OrderModalProps) {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     }
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
 
@@ -40,7 +40,7 @@ export function OrderModal({
   }
 
   const total = order.products.reduce((acc, { product, quantity }) => {
-    return acc + (product.price * quantity);
+    return acc + product.price * quantity;
   }, 0);
 
   return (
@@ -48,7 +48,7 @@ export function OrderModal({
       <ModalBody>
         <header>
           <strong>Mesa {order.table}</strong>
-          <button onClick={onClose} type='button'>
+          <button onClick={onClose} type="button">
             <img src={closeIcon} alt="Icone de fechar" />
           </button>
         </header>
@@ -57,14 +57,14 @@ export function OrderModal({
           <small>Status do pedido</small>
           <div>
             <span>
-              {order.status === 'WAITING' && '🕒'}
-              {order.status === 'IN_PRODUCTION' && '🧑‍🍳'}
-              {order.status === 'DONE' && '✅'}
+              {order.status === "WAITING" && "🕒"}
+              {order.status === "IN_PRODUCTION" && "🧑‍🍳"}
+              {order.status === "DONE" && "✅"}
             </span>
             <strong>
-              {order.status === 'WAITING' && 'Fila de espera'}
-              {order.status === 'IN_PRODUCTION' && 'Em produção'}
-              {order.status === 'DONE' && 'Pronto'}
+              {order.status === "WAITING" && "Fila de espera"}
+              {order.status === "IN_PRODUCTION" && "Em produção"}
+              {order.status === "DONE" && "Pronto"}
             </strong>
           </div>
         </div>
@@ -74,7 +74,7 @@ export function OrderModal({
 
           <div className="order-items">
             {order.products.map(({ _id, product, quantity }) => (
-              <div className='item' key={_id}>
+              <div className="item" key={_id}>
                 <img
                   width={56}
                   height={28}
@@ -82,7 +82,7 @@ export function OrderModal({
                   alt={product.name}
                 />
 
-                <span className='quantity'>{quantity}x</span>
+                <span className="quantity">{quantity}x</span>
 
                 <div className="product-details">
                   <strong>{product.name}</strong>
@@ -99,26 +99,26 @@ export function OrderModal({
         </OrderDetails>
 
         <Actions>
-          {order.status !== 'DONE' && (
+          {order.status !== "DONE" && (
             <button
               onClick={onChangeOrderStatus}
               type="button"
-              className='primary'
+              className="primary"
               disabled={isLoading}
             >
               <span>
-                {order.status === 'WAITING' && '🧑‍🍳'}
-                {order.status === 'IN_PRODUCTION' && '✅'}
+                {order.status === "WAITING" && "🧑‍🍳"}
+                {order.status === "IN_PRODUCTION" && "✅"}
               </span>
               <strong>
-                {order.status === 'WAITING' && 'Inicar Produção'}
-                {order.status === 'IN_PRODUCTION' && 'Concluir Pedido'}
+                {order.status === "WAITING" && "Inicar Produção"}
+                {order.status === "IN_PRODUCTION" && "Concluir Pedido"}
               </strong>
             </button>
           )}
           <button
             type="button"
-            className='secondary'
+            className="secondary"
             onClick={onCancelOrder}
             disabled={isLoading}
           >

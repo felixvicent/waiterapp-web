@@ -1,32 +1,44 @@
-import styled  from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.header`
-  background: #d73035;
   display: flex;
-  justify-content: center;
-  height: 198px;
+  justify-content: space-between;
   align-items: center;
-`;
-
-export const Content = styled.div`
   width: 100%;
   max-width: 1216px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin: 0 auto;
+  padding: 40px 32px 16px;
 
-  .page-details {
-    h1 {
-      color: #fff;
-      font-size: 32px;
-    }
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
 
-    h2 {
-      color: #fff;
-      font-weight: 400;
-      font-size: 16px;
-      opacity: 0.9;
-      margin-top: 6px;
+    img {
+      width: 32px;
+      height: 32px;
     }
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: #666666;
+  }
+
+  button {
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    display: flex;
+    align-items: center;
+    color: #d73035;
   }
 `;

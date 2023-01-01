@@ -1,18 +1,35 @@
-import logo from '../../assets/images/logo.svg';
+import { Container } from "./styles";
 
-import { Container, Content } from './styles';
+import refreshIcon from "../../assets/images/icons/refresh.svg";
 
-export function Header() {
+interface HeaderProps {
+  icon: string;
+  description: string;
+  title: string;
+  reset: boolean;
+}
+
+export function Header({
+  icon,
+  description,
+  title,
+  reset = false,
+}: HeaderProps) {
   return (
     <Container>
-      <Content>
-        <div className="page-details">
-          <h1>Pedidos</h1>
-          <h2>Acompanhe os pedidos dos clientes</h2>
+      <div className="left">
+        <div className="title">
+          <img src={icon} alt="Home" />
+          <h2>{title}</h2>
         </div>
-
-        <img src={logo} alt="WaiterApp" />
-      </Content>
+        <p>{description}</p>
+      </div>
+      {reset && (
+        <button>
+          <img src={refreshIcon} alt="Reiniciar o dia" />
+          Reiniciar o dia
+        </button>
+      )}
     </Container>
   );
 }
