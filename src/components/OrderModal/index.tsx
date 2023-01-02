@@ -78,7 +78,7 @@ export function OrderModal({
                 <img
                   width={56}
                   height={28}
-                  src={`http://localhost:3001/uploads/${product.imagePath}`}
+                  src={`http://localhost:3333/uploads/${product.imagePath}`}
                   alt={product.name}
                 />
 

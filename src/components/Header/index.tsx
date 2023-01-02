@@ -1,6 +1,8 @@
 import { Container } from "./styles";
 
 import refreshIcon from "../../assets/images/icons/refresh.svg";
+import { ArchiveModal } from "../ArchiveModal";
+import { useState } from "react";
 
 interface HeaderProps {
   icon: string;
@@ -15,6 +17,12 @@ export function Header({
   title,
   reset = false,
 }: HeaderProps) {
+  const [isArchiveModalVisible, setIsArchiveModalVisible] = useState(false);
+
+  async function handleArchiveOrders() {
+    setIsArchiveModalVisible(true);
+  }
+
   return (
     <Container>
       <div className="left">
@@ -25,11 +33,15 @@ export function Header({
         <p>{description}</p>
       </div>
       {reset && (
-        <button>
+        <button onClick={handleArchiveOrders}>
           <img src={refreshIcon} alt="Reiniciar o dia" />
           Reiniciar o dia
         </button>
       )}
+      <ArchiveModal
+        visible={isArchiveModalVisible}
+        onClose={() => setIsArchiveModalVisible(false)}
+      />
     </Container>
   );
 }

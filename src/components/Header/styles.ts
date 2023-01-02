@@ -28,7 +28,7 @@ export const Container = styled.header`
     color: #666666;
   }
 
-  button {
+  > button {
     background-color: transparent;
     border: 0;
     display: flex;
