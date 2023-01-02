@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import closeIcon from "../../assets/images/icons/close-icon.svg";
 import { api } from "../../service/api";
 import { Button } from "../Button";
@@ -11,8 +11,6 @@ interface ArchiveModalProps {
 }
 
 export function ArchiveModal({ onClose, visible }: ArchiveModalProps) {
-  const navigate = useNavigate();
-
   if (!visible) {
     return null;
   }
@@ -20,7 +18,11 @@ export function ArchiveModal({ onClose, visible }: ArchiveModalProps) {
   async function handleArchiveOrders() {
     await api.patch("/orders/archive");
 
-    navigate(0);
+    toast.success(
+      "Todos os pedidos foram arquivados e estão na página Histórico"
+    );
+
+    onClose();
   }
 
   return (

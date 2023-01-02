@@ -18,6 +18,10 @@ export function Orders() {
     socket.on("orders@new", (order) => {
       setOrders((prevState) => prevState.concat(order));
     });
+
+    socket.on("orders@archive", () => {
+      setOrders([]);
+    });
   }, []);
 
   useEffect(() => {
