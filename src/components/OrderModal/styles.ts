@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 export const Overlay = styled.div`
   width: 100%;
@@ -48,7 +47,7 @@ export const ModalBody = styled.div`
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 8px
+      margin-top: 8px;
     }
   }
 `;
@@ -97,8 +96,7 @@ export const OrderDetails = styled.div`
           color: #666;
         }
       }
-    };
-
+    }
   }
 
   .total {
@@ -144,5 +142,10 @@ export const Actions = styled.footer`
     border: 0;
     background-color: transparent;
     color: #d73035;
+
+    &.delete {
+      align-self: flex-start;
+      padding: 0;
+    }
   }
 `;

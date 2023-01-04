@@ -9,9 +9,10 @@ interface OrderModalProps {
   visible: boolean;
   order: Order | null;
   onClose: () => void;
-  onCancelOrder: () => Promise<void>;
+  onCancelOrder?: () => Promise<void>;
+  onDeleteOrder?: () => Promise<void>;
   isLoading: boolean;
-  onChangeOrderStatus: () => void;
+  onChangeOrderStatus?: () => void;
 }
 
 export function OrderModal({
@@ -19,6 +20,7 @@ export function OrderModal({
   order,
   onClose,
   onCancelOrder,
+  onDeleteOrder,
   isLoading,
   onChangeOrderStatus,
 }: OrderModalProps) {
@@ -99,7 +101,7 @@ export function OrderModal({
         </OrderDetails>
 
         <Actions>
-          {order.status !== "DONE" && (
+          {order.status !== "DONE" && onChangeOrderStatus && (
             <button
               onClick={onChangeOrderStatus}
               type="button"
@@ -116,14 +118,26 @@ export function OrderModal({
               </strong>
             </button>
           )}
-          <button
-            type="button"
-            className="secondary"
-            onClick={onCancelOrder}
-            disabled={isLoading}
-          >
-            Cancelar pedido
-          </button>
+          {onCancelOrder && (
+            <button
+              type="button"
+              className="secondary"
+              onClick={onCancelOrder}
+              disabled={isLoading}
+            >
+              Cancelar pedido
+            </button>
+          )}
+          {onDeleteOrder && (
+            <button
+              type="button"
+              className="secondary delete"
+              onClick={onDeleteOrder}
+              disabled={isLoading}
+            >
+              Excluir registo
+            </button>
+          )}
         </Actions>
       </ModalBody>
     </Overlay>

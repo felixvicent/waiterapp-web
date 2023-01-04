@@ -8,7 +8,7 @@ interface HeaderProps {
   icon: string;
   description: string;
   title: string;
-  reset: boolean;
+  reset?: boolean;
 }
 
 export function Header({
