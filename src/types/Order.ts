@@ -1,3 +1,5 @@
+import { Product } from "./Product";
+
 export interface Order {
   _id: string;
   table: string;
@@ -6,10 +8,6 @@ export interface Order {
   products: {
     _id: string;
     quantity: number;
-    product: {
-      name: string;
-      imagePath: string;
-      price: number;
-    };
+    product: Product;
   }[];
 }

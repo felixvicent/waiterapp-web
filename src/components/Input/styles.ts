@@ -22,11 +22,15 @@ export const Container = styled.div`
     outline: 0;
 
     ::placeholder {
-      color: #999;
+      color: #bbb;
     }
 
     &:focus {
       border-color: #666666;
+    }
+
+    & + label {
+      margin-top: 8px;
     }
   }
 
