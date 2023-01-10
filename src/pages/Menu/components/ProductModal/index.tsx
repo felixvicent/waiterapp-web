@@ -15,7 +15,7 @@ import { api } from "../../../../service/api";
 import { Category } from "../../../../types/Category";
 import { Ingredient } from "../../../../types/Ingredient";
 import { Product } from "../../../../types/Product";
-// import { DeleteProductModal } from "../DeleteProductModal";
+import { DeleteProductModal } from "../DeleteProductModal";
 import { IngredientsModal } from "../IngredientModal";
 
 import { CategoryButton, IngredientItem, ModalBody, Overlay } from "./styles";
@@ -46,6 +46,8 @@ export const ProductModal = forwardRef(
     );
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [newImage, setNewImage] = useState<File | null>(null);
+    const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] =
+      useState(false);
 
     useImperativeHandle(ref, () => ({
       setFieldsValues: (product: Product) => {
@@ -103,15 +105,6 @@ export const ProductModal = forwardRef(
     async function handleSubmit(event: FormEvent) {
       event.preventDefault();
 
-      console.log({
-        name,
-        newImage,
-        price,
-        description,
-        category,
-        selectedIngredients,
-      });
-
       const formData = new FormData();
 
       formData.append("name", name);
@@ -137,6 +130,10 @@ export const ProductModal = forwardRef(
         setImagePreview(URL.createObjectURL(files[0]));
         setNewImage(files[0]);
       }
+    }
+
+    function handleOpenDeleteProductModal() {
+      setIsDeleteProductModalOpen(true);
     }
 
     return (
@@ -271,7 +268,13 @@ export const ProductModal = forwardRef(
             </div>
 
             <div className="footer">
-              <Button ghost>Excluir Produto</Button>
+              <Button
+                type="button"
+                onClick={handleOpenDeleteProductModal}
+                ghost
+              >
+                Excluir Produto
+              </Button>
 
               <Button>Salvar Alterações</Button>
             </div>
@@ -283,14 +286,16 @@ export const ProductModal = forwardRef(
           onClose={() => setIsIngredientsModalOpen(false)}
         />
 
-        {/* <DeleteProductModal
+        <DeleteProductModal
+          visible={isDeleteProductModalOpen}
           image={image}
           category={category}
           name={name}
+          onAction={onAction}
           price={price}
           productId={id}
-          id
-        /> */}
+          onClose={() => setIsDeleteProductModalOpen(false)}
+        />
       </Overlay>
     );
   }
