@@ -13,6 +13,7 @@ import { Container } from "./styles";
 
 interface ProductFormRefProps {
   setFieldsValues: (prodcut: Product) => void;
+  resetFields: () => void;
 }
 
 export function ProductsList() {
@@ -51,13 +52,22 @@ export function ProductsList() {
     setIsEditProductModalOpen(false);
   }
 
+  function handleOpenNewProductModal() {
+    if (productFormRef.current) {
+      productFormRef.current.resetFields();
+    }
+    setIsEditProductModalOpen(true);
+  }
+
   return (
     <Container>
       <div className="title">
         <h2>
           Produtos <span>{products.length}</span>
         </h2>
-        <Button ghost>Novo Produto</Button>
+        <Button onClick={handleOpenNewProductModal} ghost>
+          Novo Produto
+        </Button>
       </div>
 
       <Table>

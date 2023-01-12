@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import {
   FormEvent,
   forwardRef,
@@ -8,6 +9,7 @@ import {
 
 import closeIcon from "../../../../assets/images/icons/close-icon.svg";
 import imageIcon from "../../../../assets/images/icons/image.svg";
+import noImg from "../../../../assets/images/no-image.png";
 
 import { Button } from "../../../../components/Button";
 import { Input } from "../../../../components/Input";
@@ -59,6 +61,16 @@ export const ProductModal = forwardRef(
         setPrice(product.price);
         setImagePreview(null);
         setId(product._id);
+      },
+      resetFields: () => {
+        setName("");
+        setImage("");
+        setDescription("");
+        setCategory(null);
+        setSelectedCategory(null);
+        setPrice(0);
+        setImagePreview(null);
+        setId("");
       },
     }));
 
@@ -114,9 +126,15 @@ export const ProductModal = forwardRef(
       formData.append("image", newImage as File);
       formData.append("ingredients", JSON.stringify(selectedIngredients));
 
-      await api.put(`/products/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      if (id) {
+        await api.put(`/products/${id}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      } else {
+        await api.post("/products", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      }
 
       onAction();
     }
@@ -156,7 +174,9 @@ export const ProductModal = forwardRef(
                       src={
                         imagePreview
                           ? imagePreview
-                          : `http://localhost:3333/uploads/${image}`
+                          : image
+                          ? `http://localhost:3333/uploads/${image}`
+                          : noImg
                       }
                       alt={name}
                     />
