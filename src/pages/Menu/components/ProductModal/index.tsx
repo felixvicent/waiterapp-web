@@ -61,6 +61,9 @@ export const ProductModal = forwardRef(
         setPrice(product.price);
         setImagePreview(null);
         setId(product._id);
+        setSelectedIngredients(
+          product.ingredients.map((ingredient) => ingredient._id)
+        );
       },
       resetFields: () => {
         setName("");
@@ -71,6 +74,7 @@ export const ProductModal = forwardRef(
         setPrice(0);
         setImagePreview(null);
         setId("");
+        setSelectedIngredients([]);
       },
     }));
 
