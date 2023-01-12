@@ -35,6 +35,7 @@ export function DeleteProductModal({
     await api.delete(`/products/${productId}`);
 
     onAction();
+    onClose();
   }
 
   return (

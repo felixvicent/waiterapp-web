@@ -8,6 +8,7 @@ import { Table } from "../../../../components/Table";
 import { api } from "../../../../service/api";
 import { Product } from "../../../../types/Product";
 import { formatCurrency } from "../../../../utils/formatCurrency";
+import { DeleteProductModal } from "../DeleteProductModal";
 import { ProductModal } from "../ProductModal";
 import { Container } from "./styles";
 
@@ -21,6 +22,8 @@ export function ProductsList() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
   const [refresh, setRefresh] = useState(1);
+  const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] =
+    useState(false);
 
   const productFormRef = useRef<ProductFormRefProps | null>(null);
 
@@ -40,6 +43,11 @@ export function ProductsList() {
     }
     setSelectedProduct(product);
     setIsEditProductModalOpen(true);
+  }
+
+  function handleDeleteProduct(product: Product) {
+    setSelectedProduct(product);
+    setIsDeleteProductModalOpen(true);
   }
 
   function handleCloseEditProductModal() {
@@ -91,7 +99,7 @@ export function ProductsList() {
               </td>
               <td>{product.name}</td>
               <td>
-                {product.category.icon} {product.category.name}
+                {product.category?.icon} {product.category?.name}
               </td>
               <td>{formatCurrency(product.price)}</td>
               <td>
@@ -99,7 +107,7 @@ export function ProductsList() {
                   <button onClick={() => handleEditProduct(product)}>
                     <img src={editIcon} alt="Edit" />
                   </button>
-                  <button>
+                  <button onClick={() => handleDeleteProduct(product)}>
                     <img src={trashIcon} alt="Trash" />
                   </button>
                 </div>
@@ -115,6 +123,17 @@ export function ProductsList() {
         visible={isEditProductModalOpen}
         title={selectedProduct ? "Editar Produto" : "Novo Produto"}
         onClose={handleCloseEditProductModal}
+      />
+
+      <DeleteProductModal
+        visible={isDeleteProductModalOpen}
+        image={selectedProduct?.imagePath ?? ""}
+        category={selectedProduct?.category ?? null}
+        name={selectedProduct?.name ?? ""}
+        onAction={handleRefresh}
+        price={selectedProduct?.price ?? ""}
+        productId={selectedProduct?._id ?? ""}
+        onClose={() => setIsDeleteProductModalOpen(false)}
       />
     </Container>
   );
