@@ -2,6 +2,7 @@ import { useState } from "react";
 import menuIcon from "../../assets/images/icons/menu.svg";
 
 import { Header } from "../../components/Header";
+import { CategoriesList } from "./components/CategoriesList";
 import { ProductsList } from "./components/ProductsList";
 import { Container, Tab } from "./style";
 
@@ -34,7 +35,7 @@ export function Menu() {
           </Tab>
         </div>
 
-        {selectedTab === "PRODUCTS" ? <ProductsList /> : <h1>Ingredients</h1>}
+        {selectedTab === "PRODUCTS" ? <ProductsList /> : <CategoriesList />}
       </div>
     </Container>
   );
