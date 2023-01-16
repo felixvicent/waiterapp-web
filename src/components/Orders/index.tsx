@@ -11,7 +11,7 @@ export function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    const socket = socketIo("http://localhost:3333", {
+    const socket = socketIo(import.meta.env.VITE_API_ENDPOINT, {
       transports: ["websocket"],
     });
 

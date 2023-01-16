@@ -93,7 +93,9 @@ export function ProductsList() {
             <tr key={product._id}>
               <td>
                 <img
-                  src={`http://localhost:3333/uploads/${product.imagePath}`}
+                  src={`${import.meta.env.VITE_API_ENDPOINT}/uploads/${
+                    product.imagePath
+                  }`}
                   alt={product.name}
                 />
               </td>

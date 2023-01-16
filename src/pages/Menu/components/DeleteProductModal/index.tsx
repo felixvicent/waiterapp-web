@@ -52,7 +52,10 @@ export function DeleteProductModal({
 
         <div className="product">
           <div className="image">
-            <img src={`http://localhost:3333/uploads/${image}`} alt={name} />
+            <img
+              src={`${import.meta.env.VITE_API_ENDPOINT}/uploads/${image}`}
+              alt={name}
+            />
           </div>
           <div className="infos">
             <h4>

@@ -179,7 +179,9 @@ export const ProductModal = forwardRef(
                         imagePreview
                           ? imagePreview
                           : image
-                          ? `http://localhost:3333/uploads/${image}`
+                          ? `${
+                              import.meta.env.VITE_API_ENDPOINT
+                            }/uploads/${image}`
                           : noImg
                       }
                       alt={name}
