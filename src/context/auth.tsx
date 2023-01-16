@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../service/api";
+import { User } from "../types/Users";
 
 const LOCAL_STORAGE_USER = "@WaiterApp:user";
 const LOCAL_STORAGE_TOKEN = "@WaiterApp:token";
@@ -7,10 +8,6 @@ const LOCAL_STORAGE_TOKEN = "@WaiterApp:token";
 interface AuthContextData {
   user: User | null;
   login: ({ email, password }: LoginProps) => Promise<void>;
-}
-
-interface User {
-  id: string;
 }
 
 interface AuthProviderProps {
