@@ -11,6 +11,7 @@ import { User } from "../../types/Users";
 import { Container } from "./styles";
 import { api } from "../../service/api";
 import { UserModal } from "./components/UserModal";
+import { DeleteUserModal } from "./components/DeleteUserModal";
 
 interface UserFormRefProps {
   setFieldsValues: (user: User) => void;
@@ -22,6 +23,7 @@ export function Users() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isOpenUserModal, setIsOpenUserModal] = useState(false);
   const [refresh, setRefresh] = useState(1);
+  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
 
   const userFormRef = useRef<UserFormRefProps | null>(null);
 
@@ -56,6 +58,11 @@ export function Users() {
 
     setIsOpenUserModal(true);
     setSelectedUser(null);
+  }
+
+  function handleDeleteUser(user: User) {
+    setSelectedUser(user);
+    setIsDeleteUserModalOpen(true);
   }
 
   return (
@@ -96,7 +103,7 @@ export function Users() {
                     <button onClick={() => handleEditUser(user)}>
                       <img src={editIcon} alt="Edit" />
                     </button>
-                    <button>
+                    <button onClick={() => handleDeleteUser(user)}>
                       <img src={trashIcon} alt="Trash" />
                     </button>
                   </div>
@@ -113,6 +120,15 @@ export function Users() {
         title={selectedUser ? "Editar Usuário" : "Novo Usúario"}
         visible={isOpenUserModal}
         onClose={() => setIsOpenUserModal(false)}
+      />
+
+      <DeleteUserModal
+        visible={isDeleteUserModalOpen}
+        name={selectedUser?.name ?? ""}
+        email={selectedUser?.email ?? ""}
+        onAction={handleRefresh}
+        userId={selectedUser?._id ?? ""}
+        onClose={() => setIsDeleteUserModalOpen(false)}
       />
     </Container>
   );

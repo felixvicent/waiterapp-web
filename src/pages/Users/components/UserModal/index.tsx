@@ -8,6 +8,7 @@ import { Input } from "../../../../components/Input";
 import { Button } from "../../../../components/Button";
 import { Radio } from "../../../../components/Radio";
 import { api } from "../../../../service/api";
+import { DeleteUserModal } from "../DeleteUserModal";
 
 interface UserModalProps {
   title: String;
@@ -131,7 +132,7 @@ export const UserModal = forwardRef(
 
             <div className="footer">
               <Button type="button" onClick={handleOpenDeleteUserModal} ghost>
-                Excluir Produto
+                Excluir Usuário
               </Button>
 
               <Button>Salvar Alterações</Button>
@@ -139,16 +140,14 @@ export const UserModal = forwardRef(
           </form>
         </ModalBody>
 
-        {/* <DeleteUserModal
-          visible={isDeleteProductModalOpen}
-          image={image}
-          category={category}
+        <DeleteUserModal
+          visible={isDeleteUserModalOpen}
           name={name}
+          email={email}
           onAction={onAction}
-          price={price}
-          productId={id}
-          onClose={() => setIsDeleteProductModalOpen(false)}
-        /> */}
+          userId={id}
+          onClose={() => setIsDeleteUserModalOpen(false)}
+        />
       </Overlay>
     );
   }
