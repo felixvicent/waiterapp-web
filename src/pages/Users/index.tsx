@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import usersIcon from "../../assets/images/icons/users.svg";
 import editIcon from "../../assets/images/icons/edit.svg";
@@ -12,11 +12,18 @@ import { Container } from "./styles";
 import { api } from "../../service/api";
 import { UserModal } from "./components/UserModal";
 
+interface UserFormRefProps {
+  setFieldsValues: (user: User) => void;
+  resetFields: () => void;
+}
+
 export function Users() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isOpenUserModal, setIsOpenUserModal] = useState(false);
   const [refresh, setRefresh] = useState(1);
+
+  const userFormRef = useRef<UserFormRefProps | null>(null);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -31,6 +38,10 @@ export function Users() {
   function handleEditUser(user: User) {
     setSelectedUser(user);
     setIsOpenUserModal(true);
+
+    if (userFormRef.current) {
+      userFormRef.current.setFieldsValues(user);
+    }
   }
 
   function handleRefresh() {
@@ -39,6 +50,10 @@ export function Users() {
   }
 
   function handleNewUser() {
+    if (userFormRef.current) {
+      userFormRef.current.resetFields();
+    }
+
     setIsOpenUserModal(true);
     setSelectedUser(null);
   }
@@ -93,6 +108,7 @@ export function Users() {
       </div>
 
       <UserModal
+        ref={userFormRef}
         onAction={handleRefresh}
         title={selectedUser ? "Editar Usuário" : "Novo Usúario"}
         visible={isOpenUserModal}

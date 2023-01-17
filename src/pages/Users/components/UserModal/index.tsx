@@ -50,7 +50,12 @@ export const UserModal = forwardRef(
       event.preventDefault();
 
       if (id) {
-        console.log("opa");
+        await api.put(`/users/${id}`, {
+          name,
+          email,
+          password,
+          role,
+        });
       } else {
         await api.post("/users/register", {
           name,
